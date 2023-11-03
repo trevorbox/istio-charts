@@ -1,0 +1,12 @@
+cni:
+  cni:
+    chained: false
+    cniBinDir: /var/lib/cni/bin
+    cniConfDir: /etc/cni/multus/net.d
+    cniConfFileName: istio-cni.conf
+    excludeNamespaces:
+    - istio-system
+    - kube-system
+    logLevel: info
+    privileged: true
+    provider: multus

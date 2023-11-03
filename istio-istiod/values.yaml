@@ -1,0 +1,9 @@
+istiod:
+  global:
+    platform: openshift
+    jwtPolicy: first-party-jwt
+  istio_cni:
+    chained: false
+    enabled: true
+  meshConfig:
+    accessLogFile: /dev/stdout

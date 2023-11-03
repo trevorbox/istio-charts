@@ -44,7 +44,7 @@ helm upgrade -i prometheus prometheus -n istio-monitoring
 ## kiali
 
 ```sh
-helm upgrade -i kiali kiali -n istio-system --set kiali.kiali_route_url=kiali-istio-system.apps-crc.testing
+helm upgrade -i kiali kiali -n istio-system --set kiali.kiali_route_url=https://kiali-istio-system.apps-crc.testing
 ```
 
 ## delete

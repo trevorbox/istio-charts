@@ -32,6 +32,21 @@ oc adm policy add-scc-to-group anyuid system:serviceaccounts:bookinfo
 helm upgrade -i bookinfo bookinfo -n bookinfo
 ```
 
+## prometheus
+
+```sh
+kubectl create namespace istio-monitoring
+kubectl label namespace istio-monitoring istio-injection=enabled
+oc adm policy add-scc-to-group anyuid system:serviceaccounts:istio-monitoring
+helm upgrade -i prometheus prometheus -n istio-monitoring
+```
+
+## kiali
+
+```sh
+helm upgrade -i kiali kiali -n istio-system --set kiali.kiali_route_url=kiali-istio-system.apps-crc.testing
+```
+
 ## delete
 
 ```sh

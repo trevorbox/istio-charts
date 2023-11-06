@@ -17,7 +17,7 @@ service:
   externalIPs: []
 
 global:
-  jwtPolicy: "first-party-jwt"
+  jwtPolicy: "third-party-jwt"
   # platform: openshift
 
 gateways:

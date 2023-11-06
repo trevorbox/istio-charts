@@ -1,7 +1,7 @@
 istiod:
   global:
     platform: openshift
-    jwtPolicy: first-party-jwt
+    jwtPolicy: third-party-jwt
   istio_cni:
     chained: false
     enabled: true

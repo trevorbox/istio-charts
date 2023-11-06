@@ -47,6 +47,12 @@ helm upgrade -i prometheus prometheus -n istio-monitoring
 helm upgrade -i kiali kiali -n istio-system --set kiali.kiali_route_url=https://kiali-istio-system.apps-crc.testing
 ```
 
+## rate limit
+
+```sh
+helm upgrade -i rate-limit rate-limit -n istio-system
+```
+
 ## delete
 
 ```sh
@@ -59,4 +65,7 @@ helm delete istio-cni -n kube-system
 ```sh
 istioctl profile dump default
 istioctl profile dump openshift
+
+kubectl -n istio-ingress exec -it deploy/istio-ingressgateway -- curl localhost:15000/config_dump > istio-ingressgateway-config.json
+curl localhost:15000/stats/prometheus | grep rate
 ```

@@ -41,3 +41,8 @@ gateways:
       name: https
       protocol: TCP
     type: ClusterIP
+    podAnnotations:
+      proxy.istio.io/config: | 
+        proxyStatsMatcher: 
+          inclusionRegexps:
+            - .*ratelimit.*

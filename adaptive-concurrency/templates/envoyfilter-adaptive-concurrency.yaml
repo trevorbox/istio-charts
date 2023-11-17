@@ -1,0 +1,44 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: filter-adaptive-concurrency
+  namespace: istio-system
+spec:
+  workloadSelector:
+    # select by label in the same namespace
+    labels:
+      istio: ingressgateway
+  configPatches:
+    # The Envoy config you want to modify
+    - applyTo: HTTP_FILTER
+      match:
+        context: GATEWAY
+        listener:
+          filterChain:
+            filter:
+              name: "envoy.filters.network.http_connection_manager"
+              subFilter:
+                name: "envoy.filters.http.router"
+      patch:
+        operation: INSERT_BEFORE
+        # Adds the Envoy Rate Limit Filter in HTTP filter chain.
+        value:
+          name: envoy.filters.http.adaptive_concurrency
+          typed_config:
+            "@type": type.googleapis.com/envoy.extensions.filters.http.adaptive_concurrency.v3.AdaptiveConcurrency
+            gradient_controller_config:
+              sample_aggregate_percentile:
+                value: 99
+              concurrency_limit_params:
+                concurrency_update_interval: 0.25s
+              min_rtt_calc_params:
+                jitter:
+                  value: 25
+                buffer:
+                  value: 25
+                interval: 20s
+                request_count: 50
+                min_concurrency: 10
+            enabled:
+              default_value: true
+              runtime_key: "adaptive_concurrency.enabled"

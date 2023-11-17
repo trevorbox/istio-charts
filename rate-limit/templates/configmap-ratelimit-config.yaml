@@ -10,7 +10,7 @@ data:
         value: "/productpage"
         rate_limit:
           unit: minute
-          requests_per_unit: 1
+          requests_per_unit: 60
       - key: PATH
         rate_limit:
           unit: minute

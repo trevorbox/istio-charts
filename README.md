@@ -53,11 +53,18 @@ helm upgrade -i kiali kiali -n istio-system --set kiali.kiali_route_url=https://
 helm upgrade -i rate-limit rate-limit -n istio-system
 ```
 
+## adaptive concurrency
+
+```sh
+helm upgrade -i adaptive-concurrency adaptive-concurrency/ -n istio-system
+```
+
 ## delete
 
 ```sh
 helm delete istiod -n istio system
 helm delete istio-cni -n kube-system
+helm delete rate-limit -n istio-system
 ```
 
 ## notes
@@ -68,4 +75,10 @@ istioctl profile dump openshift
 
 kubectl -n istio-ingress exec -it deploy/istio-ingressgateway -- curl localhost:15000/config_dump > istio-ingressgateway-config.json
 curl localhost:15000/stats/prometheus | grep rate
+```
+
+## test
+
+```sh
+siege -c 10 -r 100 https://api-istio-ingress.apps-crc.testing/productpage
 ```

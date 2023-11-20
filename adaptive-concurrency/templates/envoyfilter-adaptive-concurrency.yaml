@@ -7,12 +7,14 @@ spec:
   workloadSelector:
     # select by label in the same namespace
     labels:
-      istio: ingressgateway
+      # istio: ingressgateway
+      app: productpage
   configPatches:
     # The Envoy config you want to modify
     - applyTo: HTTP_FILTER
       match:
-        context: GATEWAY
+        # context: GATEWAY
+        context: SIDECAR_INBOUND
         listener:
           filterChain:
             filter:

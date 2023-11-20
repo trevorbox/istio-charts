@@ -315,6 +315,11 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9080"
         prometheus.io/path: "/metrics"
+        proxy.istio.io/config: | 
+          proxyStatsMatcher: 
+            inclusionRegexps:
+              - .*ratelimit.*
+              - .*adaptive_concurrency.*
       labels:
         app: productpage
         version: v1

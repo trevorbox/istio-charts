@@ -82,3 +82,13 @@ curl localhost:15000/stats/prometheus | grep rate
 ```sh
 siege -c 10 -r 100 https://api-istio-ingress.apps-crc.testing/productpage
 ```
+
+## monitoring
+
+```promql
+envoy_http_inbound_0_0_0_0_9080_adaptive_concurrency_gradient_controller_concurrency_limit
+sum(irate(envoy_http_inbound_0_0_0_0_9080_adaptive_concurrency_gradient_controller_rq_blocked[5m])) by (pod, namespace)
+
+envoy_http_inbound_0_0_0_0_9080_adaptive_concurrency_gradient_controller_min_rtt_msecs
+envoy_http_inbound_0_0_0_0_9080_adaptive_concurrency_gradient_controller_burst_queue_size
+```
